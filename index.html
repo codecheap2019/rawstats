@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+  <title>Raw Stats - Ecommerce Admin Dashboard</title>
+  
+  <!-- AngularJS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/angular@1.7.3/angular.min.js"></script>
+  <!-- fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body ng-app="app">
+ 
+ <main>
+   <section>
+       <div>
+         <img src="images/ic_logo.png" alt="" />
+         <a href="#" class="active"><i class="fas fa-home fa-lg"></i>Home</a>
+         <a href="#"><i class="fas fa-user fa-lg"></i>Customers</a>
+         <a href="#"><i class="fas fa-briefcase fa-lg"></i>Orders</a>
+         <a href="#"><i class="fas fa-chart-pie fa-lg"></i>Revenue</a>
+         <a href="#"><i class="fas fa-chart-line fa-lg"></i>Growth</a>
+         
+         <a href="#"><i class="fas fa-history fa-lg"></i>History</a>
+       </div>
+   </section>
+   
+   <section ng-controller="HomeCtrl">
+     <div class="header">
+       <input type="text" placeholder="Search Anything" class="search-bar" />
+       <select class="date-picker" ng-model="filter_days" ng-options="item as item.name for item in FilterRange track by item.value" ng-change="jsshsg()"></select>
+       <div class="account-button">
+         <img src="images/avatar.png" alt="" />
+         <p>John Doe</p>
+       </div>
+       <a href="#"><i class="fas fa-tools fa-lg"></i></a>
+       <a href="#"><i class="fas fa-bell fa-lg"></i></a>
+     </div>
+     
+     <div class="main-body">
+       <div class="total-sales-block">
+         <div class="block-title">
+           <div><strong>Total Sales</strong></div>
+           <div>Current Week</div>
+           <div>Previous Week</div>
+           <div>since last week</div>
+         </div>
+         <canvas id="Sales_Chart"></canvas>
+       </div>
+       
+       <div class="upgrade-block">
+         <h3>Unlock Premium Features</h3>
+         <button class="button warning">Buy Now</button>
+       </div>
+       
+       <div class="block">
+         <div class="block-title">
+           <div>Customers</div>
+         </div>
+         <h1>{{ customer }}</h1>
+       </div>
+       
+       <div class="block">
+         <div class="block-title">
+           <div>Orders</div>
+         </div>
+         <h1>{{ total_order }}</h1>
+       </div>
+       
+       <div class="block">
+         <div class="block-title">
+           <div>Revenue</div>
+         </div>
+         <h1>{{ amount | currency:'$ ' }}</h1>
+       </div>
+       
+       <div class="block">
+         <div class="title">Average Orders</div>
+         <h1>{{ average_order | currency:'$ ' }}</h1>
+       </div>
+     </div>
+     
+     <div class="information-block">
+       <div class="block">
+         <div class="block-title">
+           <div>Channels</div>
+         </div>
+       </div>
+       
+       <div class="block">
+         <div class="title">Top Selling Products</div>
+         <div class="tsp-block">
+           <div><b>Name</b></div>
+           <div><b>Amount</b></div>
+         </div>
+         <div class="tsp-block" ng-repeat="ord in orders">
+           <div>{{ ord.product }}</div>
+           <div>$ {{ ord.amount }}</div>
+         </div>
+         <br />
+       </div>
+     </div>
+    
+   </section>
+ </main>
+  <!-- Project -->
+  <script src="index.js"></script>
+  <!-- Fontawasome -->
+  <script src="https://kit.fontawesome.com/7ba4e14ad2.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</body>
+</html>
